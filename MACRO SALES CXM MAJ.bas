@@ -15,7 +15,7 @@ Dim feuille As String
 
 Set wb = ThisWorkbook
 'Set wb = Workbooks("FICHIER SALES  CXM.xlsm")
-Set ws = wb.Worksheets("MarieGaillard")
+Set ws = wb.Worksheets("MarieG")
 wb.Activate
 derlignelwb = lastrow(3)
 nom = Application.GetOpenFilename(FileFilter, FilterIndex, Title, ButtonText, MultiSelect)
@@ -32,7 +32,7 @@ Sheets(feuille).Activate
 derligne = lastrow(1)
 dercol = lastCol(1)
 
-'CC des numéros SAP'
+'CC des numÃ©ros SAP'
 pso.Activate
 Sheets(feuille).Activate
 Range(Cells(3, 1), Cells(derligne, 1)).Copy
@@ -86,12 +86,12 @@ Next
 'uniformisation nom vendeur
 wb.Activate
 For i = 10 To lastrow(3)
-    If Cells(i, 3) = "Sébastien Mattioli" Then
-        Cells(i, 3) = "SebastienMattioli"
+    If Cells(i, 3) = "SÃ©bastien" Then
+        Cells(i, 3) = "Sebastien"
     End If
     Cells(i, 3).Value = Replace(Cells(i, 3), " ", "")
 Next
-MsgBox "Import PSO terminer, veuillez supprimer les éventuelles lignes vides"
+MsgBox "Import PSO terminer, veuillez supprimer les Ã©ventuelles lignes vides"
 
 End Sub
 
@@ -103,7 +103,7 @@ Dim nom As Variant
 
 Set wb = ThisWorkbook
 'Set wb = Workbooks("FICHIER SALES  CXM.xlsm")
-Set ws = wb.Worksheets("MarieGaillard")
+Set ws = wb.Worksheets("MarieG")
 wb.Activate
 derlignelwb = lastrow(2)
 nom = Application.GetOpenFilename(FileFilter, FilterIndex, Title, ButtonText, MultiSelect)
@@ -159,7 +159,7 @@ ws.Cells(derlignelwb + 1, 12).Select
 ActiveCell.PasteSpecial Paste:=xlPasteValues
 
 
-'CC des numéros SAP'
+'CC des numÃ©ros SAP'
 sfdc.Activate
 Sheets(1).Activate
 Range(Cells(2, 13), Cells(derligne, 13)).Copy
@@ -245,13 +245,13 @@ Dim dico
 Dim mois As String
 Dim taux59, taux79, taux100, taux100max, saas, psorate, rule1, rule2, rule3, rule4, rule5, rule6 As Currency
 
-'définition des objectifs
+'dÃ©finition des objectifs
 obj = Cells(3, 5)
 psobj = Cells(4, 8)
 boost1 = 1.143
 boost2 = 2.143
 
-'définition des taux de commission
+'dÃ©finition des taux de commission
 psorate = Cells(4, 9)
 saas = Cells(4, 12)
 taux59 = Cells(4, 6)
@@ -259,7 +259,7 @@ taux79 = Cells(5, 6)
 taux100 = Cells(6, 6)
 taux100max = Cells(7, 6)
 
-'définition des taux rule of X
+'dÃ©finition des taux rule of X
 rule1 = Cells(2, 11)
 rule2 = Cells(3, 11)
 rule3 = Cells(4, 11)
@@ -278,10 +278,10 @@ Next
 For i = 10 To lastrow(2)
     'Calcul de la colonne cumulative revenue  et cumulative pso'
     Cells(i, 15) = WorksheetFunction.Sum(Range(Cells(10, 14), Cells(i, 14)))
-    Cells(i, 15).NumberFormat = "0.00€"
+    Cells(i, 15).NumberFormat = "0.00â‚¬"
     
     Cells(i, 23) = WorksheetFunction.Sum(Range(Cells(10, 22), Cells(i, 22)))
-    Cells(i, 23).NumberFormat = "0.00€"
+    Cells(i, 23).NumberFormat = "0.00â‚¬"
     
 
     'R/O PSO
@@ -296,11 +296,11 @@ For i = 10 To lastrow(2)
     
     'commission pso
     Cells(i, 26) = psorate * Cells(i, 22)
-    Cells(i, 26).NumberFormat = "0.00€"
+    Cells(i, 26).NumberFormat = "0.00â‚¬"
 Next
 
 
-'Calcul des souscriptions boostées'
+'Calcul des souscriptions boostÃ©es'
 For i = 10 To lastrow(2)
     
     If Cells(i, 10) > 1 Then
@@ -322,7 +322,7 @@ For i = 10 To lastrow(2)
 Next
 
 
-'Création d'un dictionnaire des Mois commerciaux
+'CrÃ©ation d'un dictionnaire des Mois commerciaux
 Set dico = CreateObject("Scripting.Dictionary")
 With dico
     .Add "01", "M12"
@@ -339,7 +339,7 @@ With dico
     .Add "12", "M11"
 End With
 
-'application du mois commercial à chaque case
+'application du mois commercial Ã  chaque case
 For i = 10 To lastrow(2)
 mois = Right(Left(Cells(i, 5), 5), 2)
 Cells(i, 1) = dico.Item(mois)
@@ -366,15 +366,15 @@ For i = 10 To lastrow(2)
     End Select
 Cells(i, 17).NumberFormat = "0.00%"
 
-'calcul du commissionnemet en €
+'calcul du commissionnemet en â‚¬
 Cells(i, 18) = Cells(i, 17) * Cells(i, 14)
-Cells(i, 18).NumberFormat = "0.00€"
+Cells(i, 18).NumberFormat = "0.00â‚¬"
 Next
 
 'Calcul Saas kicker commission
 For i = 10 To lastrow(2)
     Cells(i, 21) = Cells(i, 12) * saas
-    Cells(i, 21).NumberFormat = "0.00€"
+    Cells(i, 21).NumberFormat = "0.00â‚¬"
 Next
 
 'calcul de la rule of X
@@ -406,7 +406,7 @@ Next
 'total commissions
 For i = 10 To lastrow(2)
     Cells(i, 27) = Cells(i, 18) + Cells(i, 20) + Cells(i, 21) + Cells(i, 26)
-    Cells(i, 27).NumberFormat = "0.00€"
+    Cells(i, 27).NumberFormat = "0.00â‚¬"
 Next
 
 
@@ -422,7 +422,7 @@ Dim licence, maint, abon As Currency
 Dim ligne As Integer
 
 obj = Cells(3, 5)
-palier = Application.InputBox("Quel palier a été atteint? Entrer 60, 80 ou 100")
+palier = Application.InputBox("Quel palier a Ã©tÃ© atteint? Entrer 60, 80 ou 100")
 If palier = False Then
     Exit Sub
 End If
@@ -430,7 +430,7 @@ End If
 palier = palier / 100
 target = obj * palier
 
-ligne = Application.InputBox("Quel est le numéro de ligne de la commande qui dépasse un palier?")
+ligne = Application.InputBox("Quel est le numÃ©ro de ligne de la commande qui dÃ©passe un palier?")
 If ligne = False Then
     Exit Sub
 End If
@@ -445,7 +445,7 @@ licence = Cells(ligne, 7)
 maint = Cells(ligne, 8)
 abon = Cells(ligne, 9)
 
-'Insertion d'une ligne identique à celle à split'
+'Insertion d'une ligne identique Ã  celle Ã  split'
 Rows(ligne + 1).Insert
 Rows(ligne).Copy
 Rows(ligne + 1).Select
@@ -473,7 +473,7 @@ If Cells(ligne, 10) <> 0 Then
 Cells(ligne, 9).Font.ColorIndex = 13
 End If
 
-'modification des lignes de CA après palier'
+'modification des lignes de CA aprÃ¨s palier'
 coeff = (1 - ponderation)
 Cells(ligne, 7).Offset(1, 0).Select
 Selection = licence * coeff
@@ -504,7 +504,7 @@ derligne = Cells(Rows.Count, 2).End(xlUp).Row
 
 Set liste_name = CreateObject("System.Collections.ArrayList")
 
-start = Application.InputBox("Ligne de démararrage ?")
+start = Application.InputBox("Ligne de dÃ©mararrage ?")
 
 Worksheets(2).Activate
 For i = start To lastrow(2)
